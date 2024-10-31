@@ -131,6 +131,9 @@ let make = (
               ->String.toLowerCase
               ->String.includes(searchInput->Option.getOr("")->String.toLowerCase)
             )}
+            initialNumToRender={20}
+            windowSize={10}
+            removeClippedSubviews={true}
             style={viewStyle(~flex=1., ~width=100.->pct, ~paddingHorizontal=10.->dp, ())}
             showsHorizontalScrollIndicator=false
             keyExtractor={(_, i) => i->Int.toString}
