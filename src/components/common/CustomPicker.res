@@ -21,7 +21,17 @@ let make = (
 ) => {
   let (isModalVisible, setIsModalVisible) = React.useState(_ => false)
   let (searchInput, setSearchInput) = React.useState(_ => None)
-
+  let renderItem = React.memo(({item, index}) =>
+    <CustomTouchableOpacity
+      key={index->Int.toString}
+      style={viewStyle(~height=32.->dp, ~margin=1.->dp, ~justifyContent=#center, ())}
+      onPress={_ => {
+        setValue(_ => Some(item.value))
+        setIsModalVisible(_ => false)
+      }}>
+      <TextWrapper text={item.icon->Option.getOr("") ++ item.name} textType=ModalText />
+    </CustomTouchableOpacity>
+  )
   let pickerRef = React.useRef(Nullable.null)
   let {
     bgColor,
@@ -138,16 +148,7 @@ let make = (
             showsHorizontalScrollIndicator=false
             keyExtractor={(_, i) => i->Int.toString}
             horizontal=false
-            renderItem={({item, index}) =>
-              <CustomTouchableOpacity
-                key={index->Int.toString}
-                style={viewStyle(~height=32.->dp, ~margin=1.->dp, ~justifyContent=#center, ())}
-                onPress={_ => {
-                  setValue(_ => Some(item.value))
-                  setIsModalVisible(_ => false)
-                }}>
-                <TextWrapper text={item.icon->Option.getOr("") ++ item.name} textType=ModalText />
-              </CustomTouchableOpacity>}
+            renderItem={renderItem}
           />
         </View>
       </View>
