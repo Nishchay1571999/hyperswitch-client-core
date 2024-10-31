@@ -130,8 +130,7 @@ let make = (
               ->String.toLowerCase
               ->String.includes(searchInput->Option.getOr("")->String.toLowerCase)
             )}
-            initialNumToRender={20}
-            windowSize={10}
+            initialNumToRender={25}
             removeClippedSubviews={true}
             style={viewStyle(~flex=1., ~width=100.->pct, ~paddingHorizontal=10.->dp, ())}
             showsHorizontalScrollIndicator=false
